@@ -1,0 +1,38 @@
+main: com.gmail.jamesbehan198.servermanager.ServerManager
+name: ServerManager
+version: 1.0.0
+description: A massive server manager, with all your server needs :)
+
+commands:
+   setspawn:
+      description: Set's the spawn.
+      usage: /<command>
+      
+   spawn:
+      description: Teleports you to spawn.
+      usage: /<command>
+   
+   remspawn:
+      description: Removes the current spawn.
+      usage: /<command>
+
+permissions:
+   sm.admin.all:
+      default: op
+      children:
+         sm.spam.caps.bypass: true
+         sm.spam.ad.bypass: true
+         sm.spam.chattimer.bypass: true
+         sm.alts.bypass: true
+         
+   sm.spam.caps.bypass:
+      default: op
+      
+   sm.spam.ad.bypass:
+      default: op
+      
+   sm.spam.chattimer.bypass:
+      default: op
+      
+   sm.alts.bypass:
+      default: op

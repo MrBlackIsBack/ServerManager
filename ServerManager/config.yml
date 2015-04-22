@@ -1,0 +1,36 @@
+# All features under here are in alpha. If they do not work, set them to false to deactivate them!
+alphaFeatures:
+   chatTimer: true
+   onAdvertise: true
+# Jack is an interactive ServerManager! Note; say Jack show help to view help!
+   enableJack: true
+# If true, when someone with the same ip address of a player who is currently online, joins, all
+# online operators will be sent a message, notifying them!
+checkForAlts: true
+# Join Messages:
+joinMSG:
+   newPlayer: "&cWelcome &6^player^"
+   regPlayer: "&c^player^ &ahas joined the game!"
+
+# Title manager:
+titleMSG:
+   showTitle: true
+   title: "SERVERNAME"
+   subTitle: "Hi ^player^"
+   # Note: These MUST be accurate, please visit "http://pastebin.com/Mm6axyz1" to see valid chat colors!
+   titleColor: "RED"
+   subTitleColor: "GREEN"
+# Quit Messages:
+quitMSG:
+   msg: "&c^player^ &ahas left the game."
+# Basic spawn system:
+spawnSystem:
+# Change to false, to disable!
+   enabled: true
+# No need to edit these!
+   x: 0
+   y: 0
+   z: 0
+   world: world
+   yaw: 0
+   pitch: 0
