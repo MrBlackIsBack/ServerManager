@@ -10,6 +10,25 @@ import be.maximvdw.mctitle.TitleClass;
 
 import com.gmail.jamesbehan198.servermanager.ServerManager;
 
+/*
+ Licensed to the Apache Software Foundation (ASF) under one
+ or more contributor license agreements.  See the NOTICE file
+ distributed with this work for additional information
+ regarding copyright ownership.  The ASF licenses this file
+ to you under the Apache License, Version 2.0 (the
+ "License"); you may not use this file except in compliance
+ with the License.  You may obtain a copy of the License at
+
+ http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing,
+ software distributed under the License is distributed on an
+ "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ KIND, either express or implied.  See the License for the
+ specific language governing permissions and limitations
+ under the License.
+ */
+
 public class JoinMessage implements Listener
 {
 	
@@ -25,12 +44,9 @@ public class JoinMessage implements Listener
 	{
 		Player p = e.getPlayer();
 		
-		if(main.showTitleOnJoin)
+		if (main.showTitleOnJoin)
 		{
-			TitleClass title = new TitleClass(main.title
-					.replace("^player^", p.getName())
-					, main.subTitle
-					.replace("^player^", p.getName()));
+			TitleClass title = new TitleClass(main.title.replace("^player^", p.getName()), main.subTitle.replace("^player^", p.getName()));
 			
 			System.out.println("Debug 1;");
 			title.setTitleColor(ChatColor.valueOf(main.titleColor));
@@ -42,14 +58,12 @@ public class JoinMessage implements Listener
 			title.send(p);
 		}
 		
-		if(!p.hasPlayedBefore())
+		if (!p.hasPlayedBefore())
 		{
-			e.setJoinMessage(main.colors(main.newJoinMsg)
-					.replace("^player^", p.getName()));
+			e.setJoinMessage(main.colors(main.newJoinMsg).replace("^player^", p.getName()));
 		} else
 		{
-			e.setJoinMessage(main.colors(main.regJoinMsg)
-					.replace("^player^", p.getName()));
+			e.setJoinMessage(main.colors(main.regJoinMsg).replace("^player^", p.getName()));
 		}
 	}
 	
