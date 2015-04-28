@@ -38,6 +38,9 @@ import com.gmail.jamesbehan198.servermanager.spawnsystem.Spawn;
  under the License.
  */
 public class ServerManager extends JavaPlugin {
+	
+	private AdminMode admin;
+	
 	// Lists;
 	public List<String> spamming;
 	public List<String> password;
@@ -99,12 +102,19 @@ public class ServerManager extends JavaPlugin {
 		// Registering and saving:
 		registry();
 		saveDefaultConfig();
+		admin = new AdminMode(this);
+		
+		admin.vanish.clear();
+		admin.flying.clear();
 	}
 
 	@Override
 	public void onDisable() {
 		// Config;
 		saveDefaultConfig();
+	
+		admin.vanish.clear();
+		admin.flying.clear();
 	}
 
 	/*
