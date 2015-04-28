@@ -2,8 +2,6 @@
 alphaFeatures:
    chatTimer: true
    onAdvertise: true
-# Jack is an interactive ServerManager! Note; say Jack show help to view help!
-   enableJack: true
 # If true, when someone with the same ip address of a player who is currently online, joins, all
 # online operators will be sent a message, notifying them!
 checkForAlts: true
@@ -26,7 +24,7 @@ quitMSG:
 # Basic spawn system:
 spawnSystem:
 # Change to false, to disable!
-   enabled: true
+   enabled: true 
 # No need to edit these!
    x: 0
    y: 0

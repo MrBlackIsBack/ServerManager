@@ -7,23 +7,19 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 import com.gmail.jamesbehan198.servermanager.ServerManager;
 
-public class QuitMessages implements Listener
-{
-	
+public class QuitMessages implements Listener {
+
 	ServerManager main;
-	
-	public QuitMessages(ServerManager main)
-	{
+
+	public QuitMessages(ServerManager main) {
 		this.main = main;
 	}
-	
+
 	@EventHandler
-	public void onQuit(PlayerQuitEvent e)
-	{
+	public void onQuit(PlayerQuitEvent e) {
 		Player p = e.getPlayer();
-		
-		e.setQuitMessage(main.colors(main.quitMsg
-				.replace("^player^", p.getName())));
+
+		e.setQuitMessage(main.colors(main.quitMsg.replace("^player^", p.getName())));
 	}
-	
+
 }

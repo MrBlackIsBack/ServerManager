@@ -23,24 +23,24 @@ import com.gmail.jamesbehan198.servermanager.ServerManager;
  under the License.
  */
 
-public class JackMethods
-{
+public class JackMethods {
 	ServerManager main;
-	
-	public JackMethods(ServerManager main)
-	{
+
+	public JackMethods(ServerManager main) {
 		this.main = main;
 	}
-	
-	public void showHelp(Player p)
-	{
+
+	public void showHelp(Player p) {
 		p.sendMessage(main.colors("&4               [BETA]           "));
 		p.sendMessage(main.colors("&c-----------Jack-----------"));
 		p.sendMessage(main.colors("&aJack could you kick <name> please")); // Done
 		p.sendMessage(main.colors("&aJack show help")); // Done
 		p.sendMessage(main.colors("&aJack kill <name>")); // Done
 		p.sendMessage(main.colors("&ajck op meh pls i fan")); // Done
+		p.sendMessage(main.colors("&aJack how much kills do I have")); // TODO
+		p.sendMessage(main.colors("&aJack please heal me")); // TODO
+		p.sendMessage(main.colors("&aJack may I have a weapon")); // TODO
 		p.sendMessage(main.colors("&c-----------Jack-----------"));
 	}
-	
+
 }

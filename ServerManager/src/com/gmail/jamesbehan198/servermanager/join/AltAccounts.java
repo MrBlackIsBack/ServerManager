@@ -26,43 +26,42 @@ import com.gmail.jamesbehan198.servermanager.ServerManager;
  under the License.
  */
 
-public class AltAccounts implements Listener
-{
-	
+public class AltAccounts implements Listener {
+
 	ServerManager main;
-	
-	public AltAccounts(ServerManager main)
-	{
+
+	public AltAccounts(ServerManager main) {
 		this.main = main;
 	}
-	
+
 	@EventHandler
-	public void onJoin(PlayerJoinEvent e)
-	{
+	public void onJoin(PlayerJoinEvent e) {
 		Player p = e.getPlayer();
-		
+
 		if (p.hasPermission("sm.alts.bypass"))
 			return;
-		
-		if (main.checkForAlts)
-		{
-			
-			for (Player all : main.getServer().getOnlinePlayers())
-			{
+
+		if (main.checkForAlts) {
+
+			for (Player all : main.getServer().getOnlinePlayers()) {
 				if (all.getName().equals(p.getName()))
 					return;
-				
-				if (p.getAddress().getHostName().toString().equalsIgnoreCase(all.getAddress().getHostName().toString()))
-				{
-					if (all.isOp())
-					{
+
+				if (p.getAddress().getHostName().toString()
+						.equalsIgnoreCase(all.getAddress().getHostName().toString())) {
+					if (all.isOp()) {
 						Player ops = (Player) all;
-						ops.sendMessage(main.colors("&cPlayer &6" + p.getName() + " &cand &6" + all.getName() + " &chave the same IP Address."));
-						main.getServer().getConsoleSender().sendMessage(main.colors("&cPlayer &6" + p.getName() + " &cand &6" + all.getName() + " &chave the same IP Address."));
+						ops.sendMessage(main.colors("&cPlayer &6" + p.getName() + " &cand &6"
+								+ all.getName() + " &chave the same IP Address."));
+						main.getServer()
+								.getConsoleSender()
+								.sendMessage(
+										main.colors("&cPlayer &6" + p.getName() + " &cand &6"
+												+ all.getName() + " &chave the same IP Address."));
 					}
 				}
 			}
 		}
 	}
-	
+
 }

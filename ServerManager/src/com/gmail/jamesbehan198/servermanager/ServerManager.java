@@ -37,12 +37,11 @@ import com.gmail.jamesbehan198.servermanager.spawnsystem.Spawn;
  specific language governing permissions and limitations
  under the License.
  */
-public class ServerManager extends JavaPlugin
-{
+public class ServerManager extends JavaPlugin {
 	// Lists;
 	public List<String> spamming;
 	public List<String> password;
-	
+
 	// Booleans;
 	public boolean chatTimer;
 	public boolean onAdvertise;
@@ -52,10 +51,10 @@ public class ServerManager extends JavaPlugin
 	public boolean spawnSystem;
 	public boolean lagTimer;
 	public boolean enableJack;
-	
+
 	// Ints:
 	public long timer;
-	
+
 	// Strings;
 	public String newJoinMsg;
 	public String regJoinMsg;
@@ -64,29 +63,27 @@ public class ServerManager extends JavaPlugin
 	public String titleColor;
 	public String subTitleColor;
 	public String quitMsg;
-	
-	
+
 	@Override
-	public void onEnable()
-	{
+	public void onEnable() {
 		// Lists:
 		spamming = new ArrayList<String>();
 		password = new ArrayList<String>();
-		
+
 		// Strings related to the config:
 		newJoinMsg = getConfig().getString("joinMSG.newPlayer");
 		regJoinMsg = getConfig().getString("joinMSG.regPlayer");
-		
+
 		title = getConfig().getString("titleMSG.title");
 		subTitle = getConfig().getString("titleMSG.subTitle");
 		titleColor = getConfig().getString("titleMSG.titleColor");
 		subTitleColor = getConfig().getString("titleMSG.subTitleColor");
-		
+
 		quitMsg = getConfig().getString("quitMSG.msg");
-		
+
 		// Ints related to the config:
 		timer = getConfig().getLong("removeLag.delay");
-		
+
 		// Booleans related to the config:
 		chatTimer = getConfig().getBoolean("alphaFeatures.chatTimer");
 		onAdvertise = getConfig().getBoolean("alphaFeatures.onAdvertise");
@@ -95,48 +92,51 @@ public class ServerManager extends JavaPlugin
 		showTitleOnJoin = getConfig().getBoolean("titleMSG.showTitle");
 		spawnSystem = getConfig().getBoolean("spawnSystem.enabled");
 		lagTimer = getConfig().getBoolean("removeLag.doTimer");
-		enableJack = getConfig().getBoolean("alphaFeatures.enableJack");
+	//	enableJack = getConfig().getBoolean("alphaFeatures.enableJack");
+		enableJack = false; // Temp;
 		
+
 		// Registering and saving:
 		registry();
 		saveDefaultConfig();
 	}
-	
+
 	@Override
-	public void onDisable()
-	{
+	public void onDisable() {
 		// Config;
 		saveDefaultConfig();
 	}
-	
+
 	/*
 	 * Easy color support.
 	 */
-	public String colors(String msg)
-	{
+	public String colors(String msg) {
 		return ChatColor.translateAlternateColorCodes('&', msg);
 	}
-	
+
 	// Registry for commands and events.
-	public void registry()
-	{	
+	public void registry() {
 		// Spawn System:
 		getCommand("setspawn").setExecutor(new SetSpawn(this));
 		getCommand("spawn").setExecutor(new Spawn(this));
 		getCommand("remspawn").setExecutor(new RemoveSpawn(this));
-		
+		getCommand("admin").setExecutor(new AdminMode(this));
+
 		// Jack
 		this.getServer().getPluginManager().registerEvents(new Kick(this), this);
-		this.getServer().getPluginManager().registerEvents(new Help(this, new JackMethods(this)), this);
-		this.getServer().getPluginManager().registerEvents(new Kill(this, new JackMethods(this)), this);
+		this.getServer().getPluginManager()
+				.registerEvents(new Help(this, new JackMethods(this)), this);
+		this.getServer().getPluginManager()
+				.registerEvents(new Kill(this, new JackMethods(this)), this);
 		this.getServer().getPluginManager().registerEvents(new opmehpls(this), this);
-		
+
 		// Chat Related:
 		this.getServer().getPluginManager().registerEvents(new Spam(this), this);
-		
+
 		// Join / Quit related:
 		this.getServer().getPluginManager().registerEvents(new JoinMessage(this), this);
 		this.getServer().getPluginManager().registerEvents(new QuitMessages(this), this);
 		this.getServer().getPluginManager().registerEvents(new AltAccounts(this), this);
+		this.getServer().getPluginManager().registerEvents(new AdminMode(this), this);
 	}
 }

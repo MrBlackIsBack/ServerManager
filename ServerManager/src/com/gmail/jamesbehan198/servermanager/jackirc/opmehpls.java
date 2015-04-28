@@ -27,25 +27,24 @@ import com.gmail.jamesbehan198.servermanager.ServerManager;
  under the License.
  */
 
-public class opmehpls implements Listener
-{
-	
+public class opmehpls implements Listener {
+
 	ServerManager main;
-	
-	public opmehpls(ServerManager main)
-	{
+
+	public opmehpls(ServerManager main) {
 		this.main = main;
 	}
-	
+
 	@EventHandler
-	public void onChat(AsyncPlayerChatEvent e)
-	{
+	public void onChat(AsyncPlayerChatEvent e) {
 		Player p = e.getPlayer();
-		
-		if (e.getMessage().equalsIgnoreCase("jck op meh pls i fan"))
-		{
-			e.setCancelled(true);
-			Bukkit.broadcastMessage(main.colors("<Jack> &6" + p.getName() + " &casked for op, but was denied!"));
+
+		if (main.enableJack) {
+			if (e.getMessage().equalsIgnoreCase("jck op meh pls i fan")) {
+				e.setCancelled(true);
+				Bukkit.broadcastMessage(main.colors("<Jack> &6" + p.getName()
+						+ " &casked for op, but was denied!"));
+			}
 		}
 	}
 }

@@ -27,32 +27,31 @@ import com.gmail.jamesbehan198.servermanager.ServerManager;
  under the License.
  */
 
-public class Kill implements Listener
-{
+public class Kill implements Listener {
 	ServerManager main;
 	JackMethods methods;
-	
-	public Kill(ServerManager main, JackMethods methods)
-	{
+
+	public Kill(ServerManager main, JackMethods methods) {
 		this.main = main;
 		this.methods = methods;
 	}
-	
+
 	@EventHandler
-	public void onChat(AsyncPlayerChatEvent e)
-	{
+	public void onChat(AsyncPlayerChatEvent e) {
 		Player p = e.getPlayer();
-		
-		for (Player ps : Bukkit.getServer().getOnlinePlayers())
-		{
-			if (e.getMessage().equalsIgnoreCase("Jack kill " + ps.getName()))
-			{
-				e.setCancelled(true);
-				p.sendMessage(main.colors("<Jack> &bkilling " + ps.getName()));
-				ps.setHealth(0);
-				ps.sendMessage(main.colors("<Jack> &bYou have been killed."));
+
+		if (main.enableJack) {
+			if (p.hasPermission("sm.jack.kill")) {
+				for (Player ps : Bukkit.getServer().getOnlinePlayers()) {
+					if (e.getMessage().equalsIgnoreCase("Jack kill " + ps.getName())) {
+						e.setCancelled(true);
+						p.sendMessage(main.colors("<Jack> &bkilling " + ps.getName()));
+						ps.setHealth(0);
+						ps.sendMessage(main.colors("<Jack> &bYou have been killed."));
+					}
+				}
 			}
 		}
 	}
-	
+
 }

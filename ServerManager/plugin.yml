@@ -15,6 +15,10 @@ commands:
    remspawn:
       description: Removes the current spawn.
       usage: /<command>
+      
+   admin:
+      description: Admin mode base command!
+      usage: /<command>
 
 permissions:
    sm.admin.all:
@@ -24,6 +28,9 @@ permissions:
          sm.spam.ad.bypass: true
          sm.spam.chattimer.bypass: true
          sm.alts.bypass: true
+         sm.jack.showhelp: true
+         sm.jack.kick: true
+         sm.adminmode: true
          
    sm.spam.caps.bypass:
       default: op
@@ -35,4 +42,13 @@ permissions:
       default: op
       
    sm.alts.bypass:
+      default: op
+      
+   sm.jack.showhelp:
+      default: op
+      
+   sm.jack.kick:
+      default: op
+      
+   sm.adminmode:
       default: op
