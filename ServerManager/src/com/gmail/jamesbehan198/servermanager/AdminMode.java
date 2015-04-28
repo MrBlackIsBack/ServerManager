@@ -34,15 +34,7 @@ public class AdminMode implements CommandExecutor, Listener {
 		
 		vanish.remove(p.getName());
 	}
-	
-	@EventHandler
-	public void onPlayerJoin(PlayerJoinEvent e) {
-		if(flying.contains(e.getPlayer().getName())) {
-			e.getPlayer().setFlying(true);
-			e.getPlayer().setAllowFlight(true);
-		}
-	}
-	
+
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(!(sender instanceof Player)) {

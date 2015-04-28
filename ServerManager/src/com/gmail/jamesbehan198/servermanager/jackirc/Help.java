@@ -26,30 +26,27 @@ import com.gmail.jamesbehan198.servermanager.ServerManager;
  under the License.
  */
 
-public class Help implements Listener
-{
+public class Help implements Listener {
 	ServerManager main;
 	JackMethods methods;
-	
-	public Help(ServerManager main, JackMethods methods)
-	{
+
+	public Help(ServerManager main, JackMethods methods) {
 		this.main = main;
 		this.methods = methods;
 	}
-	
+
 	@EventHandler
-	public void onChat(AsyncPlayerChatEvent e)
-	{
+	public void onChat(AsyncPlayerChatEvent e) {
 		Player p = e.getPlayer();
-		if (p.hasPermission("sm.jack.showhelp"))
-		{
-			if (e.getMessage().equalsIgnoreCase("Jack show help"))
-			{
-				p.sendMessage(main.colors("<Jack> &bShowing help.."));
-				e.setCancelled(true);
-				methods.showHelp(p);
+		if (main.enableJack) {
+			if (p.hasPermission("sm.jack.showhelp")) {
+				if (e.getMessage().equalsIgnoreCase("Jack show help")) {
+					p.sendMessage(main.colors("<Jack> &bShowing help.."));
+					e.setCancelled(true);
+					methods.showHelp(p);
+				}
 			}
 		}
 	}
-	
+
 }
