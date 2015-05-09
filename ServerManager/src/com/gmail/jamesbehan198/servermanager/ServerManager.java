@@ -1,25 +1,4 @@
-package com.gmail.jamesbehan198.servermanager;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.bukkit.ChatColor;
-import org.bukkit.plugin.java.JavaPlugin;
-
-import com.gmail.jamesbehan198.servermanager.chat.Spam;
-import com.gmail.jamesbehan198.servermanager.jackirc.Help;
-import com.gmail.jamesbehan198.servermanager.jackirc.JackMethods;
-import com.gmail.jamesbehan198.servermanager.jackirc.Kick;
-import com.gmail.jamesbehan198.servermanager.jackirc.Kill;
-import com.gmail.jamesbehan198.servermanager.jackirc.opmehpls;
-import com.gmail.jamesbehan198.servermanager.join.AltAccounts;
-import com.gmail.jamesbehan198.servermanager.join.JoinMessage;
-import com.gmail.jamesbehan198.servermanager.quit.QuitMessages;
-import com.gmail.jamesbehan198.servermanager.spawnsystem.RemoveSpawn;
-import com.gmail.jamesbehan198.servermanager.spawnsystem.SetSpawn;
-import com.gmail.jamesbehan198.servermanager.spawnsystem.Spawn;
-
-/*
+/**
  Licensed to the Apache Software Foundation (ASF) under one
  or more contributor license agreements.  See the NOTICE file
  distributed with this work for additional information
@@ -37,13 +16,37 @@ import com.gmail.jamesbehan198.servermanager.spawnsystem.Spawn;
  specific language governing permissions and limitations
  under the License.
  */
+package com.gmail.jamesbehan198.servermanager;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.plugin.java.JavaPlugin;
+
+import com.gmail.jamesbehan198.servermanager.chat.Spam;
+import com.gmail.jamesbehan198.servermanager.jackirc.Help;
+import com.gmail.jamesbehan198.servermanager.jackirc.JackMethods;
+import com.gmail.jamesbehan198.servermanager.jackirc.Kick;
+import com.gmail.jamesbehan198.servermanager.jackirc.Kill;
+import com.gmail.jamesbehan198.servermanager.jackirc.opmehpls;
+import com.gmail.jamesbehan198.servermanager.join.AltAccounts;
+import com.gmail.jamesbehan198.servermanager.join.JoinMessage;
+import com.gmail.jamesbehan198.servermanager.quit.QuitMessages;
+import com.gmail.jamesbehan198.servermanager.spawnsystem.RemoveSpawn;
+import com.gmail.jamesbehan198.servermanager.spawnsystem.SetSpawn;
+import com.gmail.jamesbehan198.servermanager.spawnsystem.Spawn;
+
 public class ServerManager extends JavaPlugin {
-	
+
 	private AdminMode admin;
-	
+
 	// Lists;
 	public List<String> spamming;
 	public List<String> password;
+	public List<String> broadcastMessages;
 
 	// Booleans;
 	public boolean chatTimer;
@@ -54,9 +57,11 @@ public class ServerManager extends JavaPlugin {
 	public boolean spawnSystem;
 	public boolean lagTimer;
 	public boolean enableJack;
+	public boolean doBroadcasts;
 
 	// Ints:
 	public long timer;
+	public long broadcastTimer;
 
 	// Strings;
 	public String newJoinMsg;
@@ -72,6 +77,7 @@ public class ServerManager extends JavaPlugin {
 		// Lists:
 		spamming = new ArrayList<String>();
 		password = new ArrayList<String>();
+		broadcastMessages = getConfig().getStringList("broadcast.messages");
 
 		// Strings related to the config:
 		newJoinMsg = getConfig().getString("joinMSG.newPlayer");
@@ -86,6 +92,7 @@ public class ServerManager extends JavaPlugin {
 
 		// Ints related to the config:
 		timer = getConfig().getLong("removeLag.delay");
+		broadcastTimer = getConfig().getLong("broadcast.timer");
 
 		// Booleans related to the config:
 		chatTimer = getConfig().getBoolean("alphaFeatures.chatTimer");
@@ -95,24 +102,26 @@ public class ServerManager extends JavaPlugin {
 		showTitleOnJoin = getConfig().getBoolean("titleMSG.showTitle");
 		spawnSystem = getConfig().getBoolean("spawnSystem.enabled");
 		lagTimer = getConfig().getBoolean("removeLag.doTimer");
-	//	enableJack = getConfig().getBoolean("alphaFeatures.enableJack");
+		doBroadcasts = getConfig().getBoolean("broadcast.enable");
+		// enableJack = getConfig().getBoolean("alphaFeatures.enableJack");
 		enableJack = false; // Temp;
-		
 
 		// Registering and saving:
 		registry();
 		saveDefaultConfig();
 		admin = new AdminMode(this);
-		
+
 		admin.vanish.clear();
 		admin.flying.clear();
+
+		broadcast();
 	}
 
 	@Override
 	public void onDisable() {
 		// Config;
 		saveDefaultConfig();
-	
+
 		admin.vanish.clear();
 		admin.flying.clear();
 	}
@@ -134,10 +143,8 @@ public class ServerManager extends JavaPlugin {
 
 		// Jack
 		this.getServer().getPluginManager().registerEvents(new Kick(this), this);
-		this.getServer().getPluginManager()
-				.registerEvents(new Help(this, new JackMethods(this)), this);
-		this.getServer().getPluginManager()
-				.registerEvents(new Kill(this, new JackMethods(this)), this);
+		this.getServer().getPluginManager().registerEvents(new Help(this, new JackMethods(this)), this);
+		this.getServer().getPluginManager().registerEvents(new Kill(this, new JackMethods(this)), this);
 		this.getServer().getPluginManager().registerEvents(new opmehpls(this), this);
 
 		// Chat Related:
@@ -148,5 +155,18 @@ public class ServerManager extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new QuitMessages(this), this);
 		this.getServer().getPluginManager().registerEvents(new AltAccounts(this), this);
 		this.getServer().getPluginManager().registerEvents(new AdminMode(this), this);
+	}
+
+	public void broadcast() {
+		Bukkit.getServer().getScheduler().scheduleSyncRepeatingTask(this, new Runnable() {
+
+			@Override
+			public void run() {
+				if (doBroadcasts) {
+					String trans = ChatColor.translateAlternateColorCodes('&', broadcastMessages.get(new Random().nextInt(broadcastMessages.size())));
+					Bukkit.broadcastMessage(trans);
+				}
+			}
+		}, 0, broadcastTimer * 20);
 	}
 }

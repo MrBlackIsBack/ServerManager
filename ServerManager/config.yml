@@ -32,3 +32,13 @@ spawnSystem:
    world: world
    yaw: 0
    pitch: 0
+# Auto broadcast feature
+broadcast:
+# Change to false to disable
+   enable: true
+# The delay between messages
+   timer: 10
+# Messages; Follow same format as default messages.
+   messages:
+      - "&2default message"
+      - "&6message default"
