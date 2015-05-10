@@ -19,6 +19,11 @@ commands:
    admin:
       description: Admin mode base command!
       usage: /<command>
+      
+   walkspeed:
+      description: Allows users to change their walk speed!
+      aliases: [ws, speed]
+      usage: /<command>
 
 permissions:
    sm.admin.all:
@@ -31,6 +36,7 @@ permissions:
          sm.jack.showhelp: true
          sm.jack.kick: true
          sm.adminmode: true
+         sm.fun.player.walkspeed: true     
          
    sm.spam.caps.bypass:
       default: op
@@ -51,4 +57,7 @@ permissions:
       default: op
       
    sm.adminmode:
+      default: op
+      
+   sm.fun.player.walkspeed:
       default: op
