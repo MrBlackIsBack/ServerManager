@@ -27,6 +27,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.gmail.jamesbehan198.servermanager.chat.Spam;
+import com.gmail.jamesbehan198.servermanager.fun.admin.Flyspeed;
 import com.gmail.jamesbehan198.servermanager.fun.player.WalkSpeed;
 import com.gmail.jamesbehan198.servermanager.jackirc.Help;
 import com.gmail.jamesbehan198.servermanager.jackirc.JackMethods;
@@ -143,8 +144,11 @@ public class ServerManager extends JavaPlugin {
 		
 		// Other:
 		getCommand("admin").setExecutor(new AdminMode(this));
+		
+		// Speed:
 		getCommand("walkspeed").setExecutor(new WalkSpeed(this));
-
+		getCommand("flyspeed").setExecutor(new Flyspeed(this));
+		
 		// Jack
 		this.getServer().getPluginManager().registerEvents(new Kick(this), this);
 		this.getServer().getPluginManager().registerEvents(new Help(this, new JackMethods(this)), this);

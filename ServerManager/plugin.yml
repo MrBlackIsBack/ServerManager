@@ -22,9 +22,14 @@ commands:
       
    walkspeed:
       description: Allows users to change their walk speed!
-      aliases: [ws, speed]
+      aliases: [ws]
       usage: /<command>
-
+      
+   flyspeed:
+      description: Allows users to change their fly speed!
+      aliases: [fs]
+      usage: /<command>
+      
 permissions:
    sm.admin.all:
       default: op
@@ -36,7 +41,8 @@ permissions:
          sm.jack.showhelp: true
          sm.jack.kick: true
          sm.adminmode: true
-         sm.fun.player.walkspeed: true     
+         sm.fun.player.walkspeed: true
+         sm.fun.admin.flyspeed: true   
          
    sm.spam.caps.bypass:
       default: op
@@ -60,4 +66,7 @@ permissions:
       default: op
       
    sm.fun.player.walkspeed:
+      default: op
+      
+   sm.fun.admin.flyspeed:
       default: op
