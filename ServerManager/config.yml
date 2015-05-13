@@ -42,3 +42,10 @@ broadcast:
    messages:
       - "&2default message"
       - "&6message default"
+# Dynamic Motd
+dynamicMotd:
+# Everytime someone pings the server on the multiplayer menu, one of these messages
+# will show as your MOTD.
+   motd:
+     - "this is"
+     - "an example"

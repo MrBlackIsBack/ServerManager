@@ -35,6 +35,7 @@ import com.gmail.jamesbehan198.servermanager.jackirc.Kick;
 import com.gmail.jamesbehan198.servermanager.jackirc.Kill;
 import com.gmail.jamesbehan198.servermanager.jackirc.opmehpls;
 import com.gmail.jamesbehan198.servermanager.join.AltAccounts;
+import com.gmail.jamesbehan198.servermanager.join.DynamicMOTD;
 import com.gmail.jamesbehan198.servermanager.join.JoinMessage;
 import com.gmail.jamesbehan198.servermanager.quit.QuitMessages;
 import com.gmail.jamesbehan198.servermanager.spawnsystem.RemoveSpawn;
@@ -49,6 +50,7 @@ public class ServerManager extends JavaPlugin {
 	public List<String> spamming;
 	public List<String> password;
 	public List<String> broadcastMessages;
+	public List<String> dynamicMotd;
 
 	// Booleans;
 	public boolean chatTimer;
@@ -80,7 +82,8 @@ public class ServerManager extends JavaPlugin {
 		spamming = new ArrayList<String>();
 		password = new ArrayList<String>();
 		broadcastMessages = getConfig().getStringList("broadcast.messages");
-
+		dynamicMotd = getConfig().getStringList("dynamicMotd.motd");
+		
 		// Strings related to the config:
 		newJoinMsg = getConfig().getString("joinMSG.newPlayer");
 		regJoinMsg = getConfig().getString("joinMSG.regPlayer");
@@ -163,6 +166,7 @@ public class ServerManager extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new QuitMessages(this), this);
 		this.getServer().getPluginManager().registerEvents(new AltAccounts(this), this);
 		this.getServer().getPluginManager().registerEvents(new AdminMode(this), this);
+		this.getServer().getPluginManager().registerEvents(new DynamicMOTD(this), this);
 	}
 
 	public void broadcast() {
