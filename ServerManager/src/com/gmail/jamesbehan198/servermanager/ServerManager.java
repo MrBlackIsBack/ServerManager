@@ -27,6 +27,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.gmail.jamesbehan198.servermanager.chat.Spam;
+import com.gmail.jamesbehan198.servermanager.filesystem.FileCommand;
 import com.gmail.jamesbehan198.servermanager.fun.admin.Flyspeed;
 import com.gmail.jamesbehan198.servermanager.fun.player.WalkSpeed;
 import com.gmail.jamesbehan198.servermanager.jackirc.Help;
@@ -62,6 +63,8 @@ public class ServerManager extends JavaPlugin {
 	public boolean lagTimer;
 	public boolean enableJack;
 	public boolean doBroadcasts;
+	public boolean doDynamicMotd;
+	public boolean enableFileWriter;
 
 	// Ints:
 	public long timer;
@@ -108,8 +111,10 @@ public class ServerManager extends JavaPlugin {
 		spawnSystem = getConfig().getBoolean("spawnSystem.enabled");
 		lagTimer = getConfig().getBoolean("removeLag.doTimer");
 		doBroadcasts = getConfig().getBoolean("broadcast.enable");
+		doDynamicMotd = getConfig().getBoolean("dynamicMotd.enable");
 		// enableJack = getConfig().getBoolean("alphaFeatures.enableJack");
 		enableJack = false; // Temp;
+		enableFileWriter = getConfig().getBoolean("alphaFeatures.enableFileWriter");
 
 		// Registering and saving:
 		registry();
@@ -167,6 +172,9 @@ public class ServerManager extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new AltAccounts(this), this);
 		this.getServer().getPluginManager().registerEvents(new AdminMode(this), this);
 		this.getServer().getPluginManager().registerEvents(new DynamicMOTD(this), this);
+		
+		// File writer:
+		getCommand("fw").setExecutor(new FileCommand(this));
 	}
 
 	public void broadcast() {

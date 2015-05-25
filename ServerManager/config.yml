@@ -2,6 +2,9 @@
 alphaFeatures:
    chatTimer: true
    onAdvertise: true
+# IMPORTANT : CAN BE UNSTABLE! BE CAREFUL!!#
+# Allows users to create a file in the plugins data folder, and write to it!
+   enableFileWriter: false
 # If true, when someone with the same ip address of a player who is currently online, joins, all
 # online operators will be sent a message, notifying them!
 checkForAlts: true
@@ -44,6 +47,8 @@ broadcast:
       - "&6message default"
 # Dynamic Motd
 dynamicMotd:
+# Change to false to disable Dynamic Motd.
+   enable: true
 # Everytime someone pings the server on the multiplayer menu, one of these messages
 # will show as your MOTD.
    motd:

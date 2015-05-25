@@ -1,6 +1,6 @@
 main: com.gmail.jamesbehan198.servermanager.ServerManager
 name: ServerManager
-version: 1.0.0
+version: 1.0.1
 description: A massive server manager, with all your server needs :)
 
 commands:
@@ -29,6 +29,11 @@ commands:
       description: Allows users to change their fly speed!
       aliases: [fs]
       usage: /<command>
+      
+   fw:
+      description: Allows users to write to save data into a file!
+      aliases: [filewriter]
+      usage: /<command> <msg...>
       
 permissions:
    sm.admin.all:
@@ -69,4 +74,7 @@ permissions:
       default: op
       
    sm.fun.admin.flyspeed:
+      default: op
+      
+   sm.filewriter.write:
       default: op
