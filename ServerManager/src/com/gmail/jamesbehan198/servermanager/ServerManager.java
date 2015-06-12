@@ -81,12 +81,75 @@ public class ServerManager extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		admin = new AdminMode(this);
+
+		admin.vanish.clear();
+		admin.flying.clear();
+
+		// Registering and saving:
+		registry();
+		saveDefaultConfig();
+		loadCfg();
+		broadcast();
+	}
+
+	@Override
+	public void onDisable() {
+		// Config;
+		saveDefaultConfig();
+
+		admin.vanish.clear();
+		admin.flying.clear();
+	}
+
+	/*
+	 * Easy color support.
+	 */
+	public String colors(String msg) {
+		return ChatColor.translateAlternateColorCodes('&', msg);
+	}
+
+	// Registry for commands and events.
+	public void registry() {
+		// Spawn System:
+		getCommand("setspawn").setExecutor(new SetSpawn(this));
+		getCommand("spawn").setExecutor(new Spawn(this));
+		getCommand("remspawn").setExecutor(new RemoveSpawn(this));
+
+		// Other:
+		getCommand("admin").setExecutor(new AdminMode(this));
+
+		// Speed:
+		getCommand("walkspeed").setExecutor(new WalkSpeed(this));
+		getCommand("flyspeed").setExecutor(new Flyspeed(this));
+
+		// Jack
+		this.getServer().getPluginManager().registerEvents(new Kick(this), this);
+		this.getServer().getPluginManager().registerEvents(new Help(this, new JackMethods(this)), this);
+		this.getServer().getPluginManager().registerEvents(new Kill(this, new JackMethods(this)), this);
+		this.getServer().getPluginManager().registerEvents(new opmehpls(this), this);
+
+		// Chat Related:
+		this.getServer().getPluginManager().registerEvents(new Spam(this), this);
+
+		// Join / Quit related:
+		this.getServer().getPluginManager().registerEvents(new JoinMessage(this), this);
+		this.getServer().getPluginManager().registerEvents(new QuitMessages(this), this);
+		this.getServer().getPluginManager().registerEvents(new AltAccounts(this), this);
+		this.getServer().getPluginManager().registerEvents(new AdminMode(this), this);
+		this.getServer().getPluginManager().registerEvents(new DynamicMOTD(this), this);
+
+		// File writer:
+		getCommand("fw").setExecutor(new FileCommand(this));
+	}
+
+	public void loadCfg() {
 		// Lists:
 		spamming = new ArrayList<String>();
 		password = new ArrayList<String>();
 		broadcastMessages = getConfig().getStringList("broadcast.messages");
 		dynamicMotd = getConfig().getStringList("dynamicMotd.motd");
-		
+
 		// Strings related to the config:
 		newJoinMsg = getConfig().getString("joinMSG.newPlayer");
 		regJoinMsg = getConfig().getString("joinMSG.regPlayer");
@@ -115,66 +178,6 @@ public class ServerManager extends JavaPlugin {
 		// enableJack = getConfig().getBoolean("alphaFeatures.enableJack");
 		enableJack = false; // Temp;
 		enableFileWriter = getConfig().getBoolean("alphaFeatures.enableFileWriter");
-
-		// Registering and saving:
-		registry();
-		saveDefaultConfig();
-		admin = new AdminMode(this);
-
-		admin.vanish.clear();
-		admin.flying.clear();
-
-		broadcast();
-	}
-
-	@Override
-	public void onDisable() {
-		// Config;
-		saveDefaultConfig();
-
-		admin.vanish.clear();
-		admin.flying.clear();
-	}
-
-	/*
-	 * Easy color support.
-	 */
-	public String colors(String msg) {
-		return ChatColor.translateAlternateColorCodes('&', msg);
-	}
-
-	// Registry for commands and events.
-	public void registry() {
-		// Spawn System:
-		getCommand("setspawn").setExecutor(new SetSpawn(this));
-		getCommand("spawn").setExecutor(new Spawn(this));
-		getCommand("remspawn").setExecutor(new RemoveSpawn(this));
-		
-		// Other:
-		getCommand("admin").setExecutor(new AdminMode(this));
-		
-		// Speed:
-		getCommand("walkspeed").setExecutor(new WalkSpeed(this));
-		getCommand("flyspeed").setExecutor(new Flyspeed(this));
-		
-		// Jack
-		this.getServer().getPluginManager().registerEvents(new Kick(this), this);
-		this.getServer().getPluginManager().registerEvents(new Help(this, new JackMethods(this)), this);
-		this.getServer().getPluginManager().registerEvents(new Kill(this, new JackMethods(this)), this);
-		this.getServer().getPluginManager().registerEvents(new opmehpls(this), this);
-
-		// Chat Related:
-		this.getServer().getPluginManager().registerEvents(new Spam(this), this);
-
-		// Join / Quit related:
-		this.getServer().getPluginManager().registerEvents(new JoinMessage(this), this);
-		this.getServer().getPluginManager().registerEvents(new QuitMessages(this), this);
-		this.getServer().getPluginManager().registerEvents(new AltAccounts(this), this);
-		this.getServer().getPluginManager().registerEvents(new AdminMode(this), this);
-		this.getServer().getPluginManager().registerEvents(new DynamicMOTD(this), this);
-		
-		// File writer:
-		getCommand("fw").setExecutor(new FileCommand(this));
 	}
 
 	public void broadcast() {
@@ -183,7 +186,8 @@ public class ServerManager extends JavaPlugin {
 			@Override
 			public void run() {
 				if (doBroadcasts) {
-					String trans = ChatColor.translateAlternateColorCodes('&', broadcastMessages.get(new Random().nextInt(broadcastMessages.size())));
+					String trans = ChatColor.translateAlternateColorCodes('&',
+							broadcastMessages.get(new Random().nextInt(broadcastMessages.size())));
 					Bukkit.broadcastMessage(trans);
 				}
 			}

@@ -1,6 +1,6 @@
 main: com.gmail.jamesbehan198.servermanager.ServerManager
 name: ServerManager
-version: 1.0.1
+version: 1.0.3
 description: A massive server manager, with all your server needs :)
 
 commands:
@@ -47,7 +47,8 @@ permissions:
          sm.jack.kick: true
          sm.adminmode: true
          sm.fun.player.walkspeed: true
-         sm.fun.admin.flyspeed: true   
+         sm.fun.admin.flyspeed: true
+         sm.filewriter.write: true
          
    sm.spam.caps.bypass:
       default: op

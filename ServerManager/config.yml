@@ -54,3 +54,13 @@ dynamicMotd:
    motd:
      - "this is"
      - "an example"
+
+# Anything related to web-links.
+links:
+# Any link endings that you would like to block.
+# NOTE: '.com' is already included
+   linkEndings:
+      - ".org"
+      - ".net"
+      - ".tv"
+      - ".tk"

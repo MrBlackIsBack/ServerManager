@@ -1,5 +1,7 @@
 package com.gmail.jamesbehan198.servermanager.chat;
 
+import java.util.List;
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -45,8 +47,7 @@ public class Spam implements Listener {
 
 		if (msg.matches(".*[A-Z].*")) {
 			// As confusing as this looks... it's efficient.. trust me! :)
-			e.setMessage(main.colors(msg.substring(0, 1).toUpperCase()
-					+ msg.substring(1).toLowerCase() + "."));
+			e.setMessage(main.colors(msg.substring(0, 1).toUpperCase() + msg.substring(1).toLowerCase() + "."));
 		}
 	}
 
@@ -59,13 +60,28 @@ public class Spam implements Listener {
 		Player p = e.getPlayer();
 		String msg = e.getMessage();
 
+		List<String> linkEndings = main.getConfig().getStringList("links.linkEndings");
+
 		if (main.onAdvertise) {
 			if (p.hasPermission("sm.spam.ad.bypass"))
 				return;
+			
+			String endings = "";
+			
+			for (String end : linkEndings) {
+				endings += (end);
+			}
+			
+			if (msg.startsWith("www.") || msg.endsWith(".com") || msg.endsWith(endings)) {
+				p.sendMessage(main.colors("&cNo links."));
+				e.setCancelled(true);
+				return;
+			}
 
 			if (msg.indexOf('.', msg.indexOf('.') + 4) != -1) {
 				p.sendMessage(main.colors("&cPlease don't use to many dots.. Thanks :)"));
 				e.setCancelled(true);
+				return;
 			}
 
 		}
